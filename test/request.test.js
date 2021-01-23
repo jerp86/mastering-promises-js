@@ -15,7 +15,14 @@ describe('Request helpers', () => {
 
   afterEach(() => sandbox.restore());
 
-  it(`should throw a timeout error when the function has spent more than ${timeout}ms`);
+  it(`should throw a timeout error when the function has spent more than ${timeout}ms`, async () => {
+    const urlRequest = 'https://testing.com';
+    const exceededTimeout = timeout + 10;
+    sandbox.stub(request, request.get.name).callsFake(() => new Promise(r => setTimeout(r, exceededTimeout)));
+
+    const call = request.makeRequest({ url: urlRequest, method: 'get', timeout });
+    await assert.rejects(call, { message: `timeout at [${urlRequest}] :(` });
+  });
 
   it('should return ok when promise time is ok');
 
