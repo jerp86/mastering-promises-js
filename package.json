@@ -1,0 +1,34 @@
+{
+  "name": "mastering-promises-js",
+  "version": "1.0.0",
+  "description": "O que você não sabia sobre Promises em Javascript",
+  "main": "index.js",
+  "keywords": [
+    "js",
+    "javascript",
+    "promises",
+    "tdd",
+    "test",
+    "mocha",
+    "chai",
+    "nyc",
+    "sinon"
+  ],
+  "author": {
+    "name": "José Eduardo Rodrigues Pinto <jerp86>",
+    "email": "jerp4@hotmail.com",
+    "url": "https://www.linkedin.com/in/jerp/"
+  },
+  "license": "ISC",
+  "scripts": {
+    "test": "npx mocha --parallel test/",
+    "test:dev": "npx mocha -w --exit test/",
+    "test:cov": "npx nyc --chech-coverage --instrument --reporter=html --reporter=text npm test",
+    "start": "node src/"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.3"
+  }
+}
