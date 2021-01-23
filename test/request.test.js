@@ -24,7 +24,21 @@ describe('Request helpers', () => {
     await assert.rejects(call, { message: `timeout at [${urlRequest}] :(` });
   });
 
-  it('should return ok when promise time is ok');
+  it('should return ok when promise time is ok', async () => {
+    const urlRequest = 'https://testing.com';
+    const expected = { ok: 'ok' };
+    sandbox.stub(request, request.get.name)
+      .callsFake(async () => {
+        await new Promise(r => setTimeout(r));
+        
+        return expected;
+      });
+
+    const call = () => request.makeRequest({ url: urlRequest, method: 'get', timeout });
+    
+    await assert.doesNotReject(call());
+    assert.deepStrictEqual(await call(), expected);
+  });
 
   it('should return a JSON object after a request');
 });
